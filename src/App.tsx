@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import Badge from '@material-ui/core/Badge'
 import Pagination from '@material-ui/lab/Pagination';
+import Paginations from './pagination'
 //Style
 import {Wrapper, StyledButton} from './App.styles'
 import CartItem from './CartItem/CartItem'
@@ -94,6 +95,7 @@ const App = () => {
   };
   return (
     <Wrapper>
+      <Paginations currentProducts={products} />
       <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart cartItems={cartItems} addToCart={handleAddToCart} removeFromCart={handleRemoveFromCart} />
       </Drawer>
@@ -111,6 +113,8 @@ const App = () => {
       </Grid>
       
      <Pagination count={pageNumbers.length} page={currentPage} onChange={handleChange} color="primary" />
+     
+
     </Wrapper>
   );
 }
