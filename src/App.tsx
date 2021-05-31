@@ -8,6 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import Grid from '@material-ui/core/Grid'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import Badge from '@material-ui/core/Badge'
+import Pagination from '@material-ui/lab/Pagination';
 //Style
 import {Wrapper, StyledButton} from './App.styles'
 import CartItem from './CartItem/CartItem'
@@ -23,21 +24,13 @@ export type CartItemType= {
 }
 
 
-const getProducts = async (): Promise<CartItemType[]> =>
-  await (await fetch('https://fakestoreapi.com/products')).json();
 const App = () => {
   const [products, setProducts] = useState([])
-  const [productPerPage, setProductsPerPage] = useState(9)
+  const [productPerPage, setProductsPerPage] = useState(6)
   const [currentPage, setCurrentPage] = useState(1)
   const [loading,setloading] = useState(false)
   
-  // useEffect(() => {
-  //   const getProducts = async (): Promise<CartItemType[]> =>
-  //   const product = await fetch('https://fakestoreapi.com/products').json();
-  //   setProducts(product)
-  //   getProducts()
-  // }, [])
-  useEffect(() => {
+    useEffect(() => {
     async function getProducts() {
       setloading(true)
       let response = await fetch('https://fakestoreapi.com/products');
@@ -57,9 +50,7 @@ const App = () => {
   }
   const [cartOpen, setCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([] as CartItemType[])
-  //const {data, isLoading, error} = useQuery<CartItemType[]>('productsus', getProducts);
-  //console.log(data)
-
+  
   const getTotalItems = (items: CartItemType[]) =>
       items.reduce((ack:number, item) => ack + item.amount, 0)
   
@@ -90,14 +81,17 @@ const App = () => {
     ))
   }
 
-  // if (isLoading) return <LinearProgress />;
-  // if (error) return <div>Something went wrong...</div>
+  if (loading) return <LinearProgress />;
 
   const pageNumbers = [];
   for(let i = 1; i <= Math.floor(products.length / productPerPage); i++) {
     pageNumbers.push(i);
   }
   console.log(pageNumbers)
+  const handleChange = (event: React.SyntheticEvent<EventTarget>, value: number): void  => {
+       setCurrentPage(value);
+    event.preventDefault();
+  };
   return (
     <Wrapper>
       <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
@@ -115,15 +109,8 @@ const App = () => {
           </Grid>
         ))}
       </Grid>
-      <ul className="pagination mt-2">
-      {pageNumbers.map(number => {
-        return (
-          <li key={number} className="page-item">
-            <a href="#" className="page-link" onClick={() => changePage(number)}>{number}</a>
-          </li>
-        );
-      })}
-    </ul>
+      
+     <Pagination count={pageNumbers.length} page={currentPage} onChange={handleChange} color="primary" />
     </Wrapper>
   );
 }
