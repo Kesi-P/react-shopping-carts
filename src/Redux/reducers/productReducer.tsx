@@ -6,24 +6,13 @@ type Props ={
     currentProducts: CartItemType[]
 }
 const initialState ={
-    currentProducts: [
-        {
-            id:1,
-  category:'string',
-  image:'string',
-  price:1,
-  title:'string',
-  amount:1,
-  description:'string',
-
-        }
-    ]
+    currentProducts: []
 }
 
 export const productReducer = (state:Props = initialState,action: { type:any , payload:string}) => {
     switch (action.type) {
         case ActionTypes.SET_PRODUCTS:
-            return state;    
+            return {...state, currentProducts: [...state.currentProducts, action.payload]};    
         default:
             return state;
     }

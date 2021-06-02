@@ -7,8 +7,10 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import Badge from '@material-ui/core/Badge'
 import Pagination from '@material-ui/lab/Pagination';
 import CartItemGrid from './CartItem/CartItemGrid'
+import Item from './Item/item'
 //Style
 import {Wrapper, StyledButton} from './App.styles'
+import Grid from '@material-ui/core/Grid'
 export type CartItemType= {
     id:number;
     category:string;
@@ -98,14 +100,14 @@ const Home = () => {
                 <AddShoppingCartIcon />
               </Badge>
             </StyledButton>
-            {/* <Grid container spacing={3}>
+            <Grid container spacing={3}>
               {currentProducts?.map(item => (
                 <Grid item key={item.id} xs={12} sm={4}>
                   <Item item={item} handleAddToCart={handleAddToCart} />
                 </Grid>
               ))}
-            </Grid> */}
-            <CartItemGrid currentProducts={currentProducts}/>
+            </Grid>
+            {/* <CartItemGrid currentProducts={currentProducts}/> */}
             
            <Pagination count={pageNumbers.length} page={currentPage} onChange={handleChange} color="primary" />
            

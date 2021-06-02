@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 //component
 
 import LinearProgress from '@material-ui/core/LinearProgress'
@@ -18,9 +19,13 @@ export type CartItemType= {
 
 
 const App = () => {
+  
   const [products, setProducts] = useState([])  
   const [loading,setloading] = useState(false)
+
+  //const currentProducts = useSelector<CartItemType[]>((state) => state.currentProducts)
   
+
     useEffect(() => {
     async function getProducts() {
       setloading(true)
@@ -33,7 +38,8 @@ const App = () => {
     getProducts();
   }, []);
  
- 
+  const dispatch = useDispatch()
+  dispatch({type:'SET_PRODUCTS', payload: products})
 
   if (loading) return <LinearProgress />;
 
