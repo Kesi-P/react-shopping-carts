@@ -38,8 +38,8 @@ const App = () => {
     getProducts();
   }, []);
  
-  const dispatch = useDispatch()
-  dispatch({type:'SET_PRODUCTS', payload: products})
+  // const dispatch = useDispatch()
+  // dispatch({type:'SET_PRODUCTS', payload: products})
 
   if (loading) return <LinearProgress />;
 
