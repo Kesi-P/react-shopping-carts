@@ -21,10 +21,7 @@ const initialState = {
 export const productReducer = (state: CartItemTypeReducer = initialState, action: { type: any, payload: any }) => {
   switch (action.type) {
     case ActionTypes.SET_PRODUCTS:
-      let countId: any[] = []
-      state.currentProducts.map((item: any) => {
-        countId.push(item.id)
-      })
+      
 
       // const isItemInCart = countId?.find((item) => item === action.payload.id)
       // if (isItemInCart) {
@@ -44,7 +41,9 @@ export const productReducer = (state: CartItemTypeReducer = initialState, action
       // }else{
       return { ...state, currentProducts: [...state.currentProducts, { ...action.payload, amount: 1 }] };
     //}
-   
+    case ActionTypes.REMOVE_SELECTED_PRODUCT:
+      console.log(action.payload)
+      return { ...state, currentProducts: [...state.currentProducts, { ...action.payload, amount: - 1 }] };
     default:
       return state;
   }
@@ -75,6 +74,46 @@ switch (action.type) {
    // console.log(action.payload)
     return { ...state ,currentProducts:[...result]};
 
+    // case ActionTypes.REMOVE_SELECTED_PRODUCT:
+    //   const minusresult: CartItemTypeReducer[] = [];
+    //   state.currentProducts.reduce(function (res: any, value: any) {
+    //     console.log(res)
+    //     console.log(state.currentProducts)
+    //     if (!res[value.id]) {
+    //       if (value.amount === 0){
+    //         res[value.id] = {}
+    //         alert('o')
+    //       }
+    //       else if( value.id === action.payload){
+    //         res[value.id] = {
+    //           id: value.id,
+    //           amount: value.amount -1,
+    //           category: value.category,
+    //           description: value.description,
+    //           image: value.image,
+    //           price: value.price,
+    //           title: value.title
+    //       }}else {
+    //         res[value.id] = {
+    //           id: value.id,
+    //           amount: value.amount,
+    //           category: value.category,
+    //           description: value.description,
+    //           image: value.image,
+    //           price: value.price,
+    //           title: value.title
+    //         };
+    //       }
+          
+    //       minusresult.push(res[value.id])
+          
+    //     }
+        
+    //     return res;
+    //   }, {});
+  
+      // console.log(minusresult)
+      // return { ...state ,currentProducts:[...minusresult]};
   default:
     return state;
 }

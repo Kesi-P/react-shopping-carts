@@ -2,14 +2,25 @@ import Button from '@material-ui/core/Button'
 import { CartItemType } from '../App'
 import Item from '../Item/item'
 import { Wrapper } from './CastItem.styles'
+import { useDispatch, useSelector } from 'react-redux'
 
 type Props = {
     item: CartItemType;
     addToCart: (clickedItem: CartItemType) => void;
-    removeFromCart: (id: number) => void;
+    removeFromCart: (removeItem: CartItemType) => void;
 }
+
+
 const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => 
-(
+{  
+    // const allSelectedProducts: any = useSelector<CartItemType>(
+    //     (state) => state
+    //   )
+    
+    //   const stateTotalProducts = allSelectedProducts.allProducts.currentProducts;  
+    //   console.log(stateTotalProducts);
+      
+    return (
     <Wrapper>
         <div>
             <h3>{item.title}</h3>
@@ -18,7 +29,7 @@ const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) =>
                 <p>Total: ${(item.amount * item.price).toFixed(2)}</p>
             </div>
             <div className='buttons'>
-                <Button size='small' disableElevation variant='contained' onClick={() => removeFromCart(item.id)}>
+                <Button size='small' disableElevation variant='contained' onClick={() => removeFromCart(item)}>
                     -
                 </Button>
                 <p>{item.amount}</p>
@@ -29,6 +40,7 @@ const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) =>
         </div>
         <img src={item.image} alt={item.title} />
     </Wrapper>
-)
+    )
+    }
 
 export default CartItem

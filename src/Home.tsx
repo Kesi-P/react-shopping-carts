@@ -44,17 +44,7 @@ const Home = () => {
 
   const currentProducts: CartItemType[] = products.slice(firstPostIndex, lastProductIndex);
   const [cartOpen, setCartOpen] = useState(false)
-  const [cartItems, setCartItems] = useState([] as CartItemType[])
-
-
-  const allSelectedProducts: any = useSelector<CartItemTypeReducer>(
-    (state) => state
-  )
-
-  const stateTotalProducts = allSelectedProducts.allProducts.currentProducts;
-  //console.log(stateTotalProducts)
-
-
+   
   const dispatch = useDispatch()
   const handleAddToCart = (clickedItem: CartItemType) => {
     dispatch({ type: 'SET_PRODUCTS', payload: clickedItem })
@@ -62,33 +52,49 @@ const Home = () => {
   const getTotalItemsReducer = (item: any[]) => {
     dispatch({ type: 'SELECTED_PRODUCT', payload: item })
   }
+  // const handleRemoveFromCart = (id:number) => {
+  //   dispatch({ type: 'REMOVE_SELECTED_PRODUCT' , payload: id})
+  // }
+  const handleRemoveFromCart = (removeItem: CartItemType) => {
+    dispatch({ type: 'REMOVE_SELECTED_PRODUCT' , payload: removeItem})
+  }
+  
+  //add products
+  const allSelectedProducts: any = useSelector<CartItemTypeReducer>(
+    (state) => state
+  )
+
+  const stateTotalProducts = allSelectedProducts.allProducts.currentProducts;  
+  console.log(stateTotalProducts);
   useEffect(() => {
 
     getTotalItemsReducer(stateTotalProducts)
 
-  }, [stateTotalProducts]);
+  }, [stateTotalProducts] );
+
+
   const amountProducts: any = useSelector<CartItemTypeReducer>(
     (state) => state
   )
 
   const stateamountProducts = amountProducts.amountProducts.currentProducts;
-  console.log(stateamountProducts)
+  //console.log(stateamountProducts)
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0)
-
-  const handleRemoveFromCart = (id: number) => {
-    setCartItems(prev => (
-      prev.reduce((ack, item) => {
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack, { ...item, amount: item.amount - 1 }]
-        } else {
-          return [...ack, item]
-        }
-      }, [] as CartItemType[])
-    ))
-  }
+  
+  // const handleRemoveFromCart = (id: number) => {
+  //   setCartItems(prev => (
+  //     prev.reduce((ack, item) => {
+  //       if (item.id === id) {
+  //         if (item.amount === 1) return ack;
+  //         return [...ack, { ...item, amount: item.amount - 1 }]
+  //       } else {
+  //         return [...ack, item]
+  //       }
+  //     }, [] as CartItemType[])
+  //   ))
+  // }
 
   if (loading) return <LinearProgress />;
 
