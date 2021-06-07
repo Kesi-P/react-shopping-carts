@@ -80,7 +80,7 @@ const Paginations: React.FC<Props> = ({ currentProducts }) => {
           textColor="primary"
         >
           {distinctCategory.map((item: any, key) => (
-            <Link to={`/${splitItem(item)}`} ><Tab label={item} onClick={() => handleChange(key)} /></Link>
+            <Link to={`/${splitItem(item)}`} style ={{textDecoration: 'none' }}><Tab label={item} onClick={() => handleChange(key)} /></Link>
           ))}
           {/* {summary(currentProducts)} */}
         </Tabs>
