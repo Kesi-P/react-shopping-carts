@@ -53,7 +53,7 @@ export const productamountReducer = (state: CartItemTypeReducer = initialState, 
 switch (action.type) {
   case ActionTypes.SELECTED_PRODUCT:
 
-    const result: CartItemTypeReducer[] = [];
+    const result:any[] = [];
     action.payload.reduce(function (res: any, value: any) {
       if (!res[value.id]) {
         res[value.id] = {
@@ -68,52 +68,24 @@ switch (action.type) {
         result.push(res[value.id])
       }
       res[value.id].amount += value.amount;
-      return res;
+      if(res[value.id].amount > 0){
+        return res;
+      }else{
+        res[value.id].amount = 0
+        return res;
+      }
     }, {});
-
-   // console.log(action.payload)
+    //remove 0 amount
+    for( var i = 0; i < result.length; i++){ 
+        console.log(result[i].id)                           
+      if ( result[i].amount === 0) { 
+         result.splice(i, 1); 
+          i--; 
+      }
+  }
+    //console.log(result)
     return { ...state ,currentProducts:[...result]};
 
-    // case ActionTypes.REMOVE_SELECTED_PRODUCT:
-    //   const minusresult: CartItemTypeReducer[] = [];
-    //   state.currentProducts.reduce(function (res: any, value: any) {
-    //     console.log(res)
-    //     console.log(state.currentProducts)
-    //     if (!res[value.id]) {
-    //       if (value.amount === 0){
-    //         res[value.id] = {}
-    //         alert('o')
-    //       }
-    //       else if( value.id === action.payload){
-    //         res[value.id] = {
-    //           id: value.id,
-    //           amount: value.amount -1,
-    //           category: value.category,
-    //           description: value.description,
-    //           image: value.image,
-    //           price: value.price,
-    //           title: value.title
-    //       }}else {
-    //         res[value.id] = {
-    //           id: value.id,
-    //           amount: value.amount,
-    //           category: value.category,
-    //           description: value.description,
-    //           image: value.image,
-    //           price: value.price,
-    //           title: value.title
-    //         };
-    //       }
-          
-    //       minusresult.push(res[value.id])
-          
-    //     }
-        
-    //     return res;
-    //   }, {});
-  
-      // console.log(minusresult)
-      // return { ...state ,currentProducts:[...minusresult]};
   default:
     return state;
 }
