@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 //pages
-import ForMen from './Category/Formen'
+import Categorytemplat from './Category/Categorytemplate'
 import Home from './Home'
 import {
   BrowserRouter as Router,
@@ -20,7 +20,7 @@ type Props = {
 }
 const Paginations: React.FC<Props> = ({ currentProducts }) => {
   const getCategory: (string | number)[] = []
-
+  const [value, setValue] = useState(0);
 
   currentProducts.map(item => (
     getCategory.push(item.category)
@@ -30,9 +30,10 @@ const Paginations: React.FC<Props> = ({ currentProducts }) => {
   const distinctCategory = Array.from(new Set(getCategory))
   console.log(distinctCategory);
 
-  function handleChange(newValue: any) {
-    //e.preventDefault();
+  function handleChange(newValue: number)  {
+    setValue(newValue)
     console.log(newValue);
+    
 
   };
 
@@ -69,24 +70,17 @@ const Paginations: React.FC<Props> = ({ currentProducts }) => {
 
     }
 
-    console.log(women);
-
-
-
-  //}
-
   return (
     <Router>
       <Paper square>
         <Tabs
-          //value={value}
+          value={value}
+          // onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
-          //onChange={handleChange}
-          aria-label="disabled tabs example"
         >
-          {distinctCategory.map((item: any) => (
-            <Link to={`/${splitItem(item)}`} ><Tab label={item} /></Link>
+          {distinctCategory.map((item: any, key) => (
+            <Link to={`/${splitItem(item)}`} ><Tab label={item} onClick={() => handleChange(key)} /></Link>
           ))}
           {/* {summary(currentProducts)} */}
         </Tabs>
@@ -94,13 +88,19 @@ const Paginations: React.FC<Props> = ({ currentProducts }) => {
       <Switch>
 
         <Route path="/men">
-          <ForMen menProducts={men}/>
+          <Categorytemplat allProducts={men}/>
         </Route>
-        <Route path="/topics">
-          {/* <Topics /> */}
+        <Route path="/jewelery">
+        <Categorytemplat allProducts={jew}/>
+        </Route>
+        <Route path="/electronics">
+        <Categorytemplat allProducts={elect}/>
+        </Route>
+        <Route path="/women">
+        <Categorytemplat allProducts={women}/>
         </Route>
         <Route path="/">
-          <Home />
+        <Home />
         </Route>
       </Switch>
 

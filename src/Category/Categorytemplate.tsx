@@ -15,12 +15,15 @@ import { CartItemTypeReducer } from '../Redux/reducers/productReducer'
 //Style
 import { Wrapper, StyledButton } from '../App.styles'
 import Grid from '@material-ui/core/Grid'
+
 type Props ={
-    menProducts: CartItemType[]
+    allProducts: CartItemType[]
 }
-const Formen: React.FC<Props> = ({menProducts}) => {
+const Categorytemplate: React.FC<Props> = ({allProducts}) => {
     
     const [cartOpen, setCartOpen] = useState(false)
+    const [productPerPage, setProductsPerPage] = useState(3)
+    const [currentPage, setCurrentPage] = useState(1)
     const dispatch = useDispatch()
     
     const amountProducts:any = useSelector<CartItemTypeReducer>(
@@ -45,10 +48,21 @@ const Formen: React.FC<Props> = ({menProducts}) => {
       }
     const getTotalItems = (items: CartItemType[]) =>
       items.reduce((ack: number, item) => ack + item.amount, 0)
+
+    //pagination
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.floor(allProducts.length / productPerPage); i++) {
+    pageNumbers.push(i);
+    }
+    const handleChange = (event:  React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value);
+        event.preventDefault();
+        
+      };
     return (
         <Wrapper>
 
-        <Drawer anchor='right' open={cartOpen} onClose={() => setCartOpen(false)}>
+        <Drawer anchor='left' open={cartOpen} onClose={() => setCartOpen(false)}>
           <Cart cartItems={stateamountProducts} addToCart={handleAddToCart} removeFromCart={handleRemoveFromCart} />
         </Drawer>
         <StyledButton onClick={() => setCartOpen(true)}>
@@ -57,21 +71,25 @@ const Formen: React.FC<Props> = ({menProducts}) => {
           </Badge>
         </StyledButton>
         <Grid container spacing={3}>
-          {menProducts?.map(item => (
+          {allProducts?.map(item => (
             <Grid item key={item.id} xs={12} sm={4}>
               <Item item={item} handleAddToCart={handleAddToCart} />
             </Grid>
           ))}
         </Grid>
         {/* <CartItemGrid currentProducts={currentProducts}/> */}
-  
-        {/* <Pagination count={pageNumbers.length} page={currentPage} onChange={handleChange} color="primary" /> */}
+        {
+             (pageNumbers.length > 1 )?
+             <Pagination count={pageNumbers.length} page={currentPage} onChange={handleChange} color="primary" /> : null
+            
+        }
+        
   
   
       </Wrapper>
     )
 }
 
-export default Formen;
+export default Categorytemplate;
 
 

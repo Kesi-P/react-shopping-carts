@@ -76,8 +76,7 @@ switch (action.type) {
       }
     }, {});
     //remove 0 amount
-    for( var i = 0; i < result.length; i++){ 
-        console.log(result[i].id)                           
+    for( var i = 0; i < result.length; i++){             
       if ( result[i].amount === 0) { 
          result.splice(i, 1); 
           i--; 
