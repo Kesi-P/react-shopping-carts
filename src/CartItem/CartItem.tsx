@@ -38,7 +38,8 @@ const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) =>
                 </Button>
             </div>
         </div>
-        <img src={item.image} alt={item.title} />
+        <div className='product-image' style= {{ backgroundImage: `url(${item.image})` }} ></div>
+        {/* <img src={item.image} alt={item.title} /> */}
     </Wrapper>
     )
     }

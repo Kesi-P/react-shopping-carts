@@ -17,4 +17,12 @@ export const Wrapper = styled.div`
         object-fit:cover;
         margin-left: 40px
     }
+    div.product-image{
+        background-repeat: no-repeat;
+        background-size: contain;
+        /* height: 150px; */
+        background-position: bottom;
+        width: 15%;
+        margin: 10px;
+    }
 `;
