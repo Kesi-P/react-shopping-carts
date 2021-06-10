@@ -32,11 +32,11 @@ const Paginations: React.FC<Props> = ({ currentProducts }) => {
 
   function handleChange(newValue: number)  {
     setValue(newValue)
-    console.log(newValue);
+    
     
 
   };
-
+  console.log('new');
   function splitItem(item: string) {
     return (
       item.split("'").shift()
