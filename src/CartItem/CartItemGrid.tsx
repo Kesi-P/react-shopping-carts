@@ -1,4 +1,5 @@
 import Grid from '@material-ui/core/Grid'
+import React from 'react';
 import { CartItemType } from '../App';
 import Item from '../Item/item'
 

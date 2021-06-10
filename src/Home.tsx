@@ -12,6 +12,7 @@ import { CartItemTypeReducer } from './Redux/reducers/productReducer'
 //Style
 import { Wrapper, StyledButton } from './App.styles'
 import Grid from '@material-ui/core/Grid'
+import React from 'react'
 export type CartItemType = {
   id: number;
   category: string;

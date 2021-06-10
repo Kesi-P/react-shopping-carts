@@ -3,6 +3,7 @@ import { CartItemType } from '../App'
 import Item from '../Item/item'
 import { Wrapper } from './CastItem.styles'
 import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
 
 type Props = {
     item: CartItemType;

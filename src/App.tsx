@@ -6,6 +6,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import Paginations from './pagination'
 //Style
 import {Wrapper} from './App.styles'
+import React from 'react'
 
 export type CartItemType= {
   id:number;
